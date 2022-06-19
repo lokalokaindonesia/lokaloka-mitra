@@ -1,55 +1,49 @@
-import { HiBadgeCheck, HiClock, HiTrendingUp } from 'react-icons/hi'
-import { AiFillDashboard } from 'react-icons/ai'
-import Divider from '../atoms/sidebar/Divider'
-import NavItem from '../atoms/sidebar/NavItem'
-import Sidebar from '../molecules/sidebar/Sidebar'
-import { useSession } from 'next-auth/client'
-import Head from 'next/head'
-import Script from 'next/script'
+import { HiBadgeCheck, HiClock, HiTrendingUp } from "react-icons/hi";
+import { AiFillDashboard } from "react-icons/ai";
+import Divider from "../atoms/sidebar/Divider";
+import NavItem from "../atoms/sidebar/NavItem";
+import Sidebar from "../molecules/sidebar/Sidebar";
+import { useSession } from "next-auth/client";
+import Head from "next/head";
+import Script from "next/script";
 
 const Layout = ({ children }) => {
-    const [session, loading] = useSession()
+  const [session, loading] = useSession();
 
-    return (
-        <div className='layout'>
-            <Head>
-                <title>Mitra Hotel | Admin Panel</title>
-                <meta name='description' content='Admin panel for Arumanis' />
-            </Head>
-            {/* Sidebar */}
-            <Sidebar>
-                {/* <NavItem href='/'>
+  return (
+    <div className="layout">
+      <Head>
+        <title>Mitra x Lokaloka | Admin Panel</title>
+        <meta name="description" content="Admin panel for Arumanis" />
+      </Head>
+      {/* Sidebar */}
+      <Sidebar>
+        {/* <NavItem href='/'>
                     <AiFillDashboard className='w-5 h-5' />
                     <span>Dashboard</span>
                 </NavItem> */}
-                {session?.user?.email != 'driver@gmail.com' && (
-                    <>
-                        <Divider label='orders' />
-                        <NavItem href='/orders/requested-orders'>
-                            <HiClock className='w-5 h-5' />
-                            <span>Requested Orders</span>
-                        </NavItem>
-                        {session?.user?.email == 'official@lokaloka.id' && (
-                            <>
-                                <NavItem href='/orders/approved-orders'>
-                                    <HiBadgeCheck className='w-5 h-5' />
-                                    <span>Approved Orders</span>
-                                </NavItem>
-                                <Divider label='Histories' />
-                                <NavItem href='/transactions'>
-                                    <HiTrendingUp className='w-5 h-5' />
-                                    <span>Transactions</span>
-                                </NavItem>
-                            </>
-                        )}
-                    </>
-                )}
-            </Sidebar>
+        {session?.user?.email != "driver@gmail.com" && (
+          <>
+            <Divider label="orders" />
 
-            {/* Main Content */}
-            <div className='flex-1 py-8 px-10 bg-blueGray-800 max-h-screen h-screen overflow-y-auto'>{children}</div>
-        </div>
-    )
-}
+            {session?.user?.email == "official@lokaloka.id" && (
+              <>
+                <NavItem href="/orders/approved-orders">
+                  <HiBadgeCheck className="w-5 h-5" />
+                  <span>Approved Orders</span>
+                </NavItem>
+              </>
+            )}
+          </>
+        )}
+      </Sidebar>
 
-export default Layout
+      {/* Main Content */}
+      <div className="flex-1 py-8 px-10 bg-blueGray-800 max-h-screen h-screen overflow-y-auto">
+        {children}
+      </div>
+    </div>
+  );
+};
+
+export default Layout;
