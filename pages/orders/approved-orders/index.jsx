@@ -11,10 +11,7 @@ export const getServerSideProps = async (context) => {
   const session = await getSession(context);
 
   const { data } = await axios.get(
-    session?.user?.email != "testskripsi212@gmail.com" &&
-      `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:asc&paymentStatus=PROCESSED`,
-    session?.user?.email == "official@lokaloka.id" &&
-      `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:asc&coupon.code=SAMARA`,
+    `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:asc&coupon.code=SAMARA`,
 
     {
       headers: {
@@ -63,19 +60,7 @@ const index = ({ transactions }) => {
                     {moment(t.createdAt).format("LLLL")}
                   </span>
                 </div>
-                <div className="flex flex-col justify-start space-y-2">
-                  <span className="uppercase text-blueGray-400 font-medium text-sm">
-                    Total Payment
-                  </span>
-                  <span className="font-bold text-md text-blueGray-100">
-                    <NumberFormat
-                      value={t.shouldPayAmount}
-                      displayType={"text"}
-                      thousandSeparator={true}
-                      prefix={"Rp. "}
-                    />
-                  </span>
-                </div>
+
                 <div className="flex flex-col justify-start space-y-2 max-w-md">
                   <span className="uppercase text-blueGray-400 font-medium text-sm">
                     Shipping Address
@@ -159,6 +144,24 @@ const index = ({ transactions }) => {
                         ))}{" "}
                       </ul>
                     </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col space-y-1">
+                  <span className="text-lg font-medium">&nbsp;</span>
+                  <div className="flex flex-col space-y-2 mt-1 text-blueGray-200">
+                    <ul className="">
+                      {t.products.map((p, i) => (
+                        <li key={i}>
+                          <NumberFormat
+                            value={p.product.sellingPrice * p.quantity}
+                            displayType={"text"}
+                            thousandSeparator={true}
+                            prefix={"Rp. "}
+                          />
+                        </li>
+                      ))}{" "}
+                    </ul>
                   </div>
                 </div>
               </div>
