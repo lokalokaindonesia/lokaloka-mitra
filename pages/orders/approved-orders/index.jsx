@@ -11,8 +11,11 @@ export const getServerSideProps = async (context) => {
   const session = await getSession(context);
 
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:asc&coupon.code=SAMARA`,
+    session?.user?.email != "driver@gmail.com" &&
+      `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:asc&coupon.code=LOKALOKA`,
 
+    session?.user?.email == "official@lokaloka.com" &&
+      `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:asc&coupon.code=SAMARA`,
     {
       headers: {
         Authorization: `Bearer ${session.jwt}`,
