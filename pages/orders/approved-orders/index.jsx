@@ -6,6 +6,7 @@ import Layout from "@/components/layout/Layout";
 import moment from "moment";
 import NumberFormat from "react-number-format";
 import { getSession } from "next-auth/client";
+import { useSession } from "next-auth/client";
 
 export const getServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -14,7 +15,7 @@ export const getServerSideProps = async (context) => {
     session?.user?.email != "driver@gmail.com" &&
       `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:asc&coupon.code=LOKALOKA`,
 
-    session?.user?.email == "official@lokaloka.com" &&
+    session?.user?.email == "official@lokaloka.id" &&
       `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:asc&coupon.code=SAMARA`,
     {
       headers: {
