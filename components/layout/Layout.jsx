@@ -22,20 +22,16 @@ const Layout = ({ children }) => {
                     <AiFillDashboard className='w-5 h-5' />
                     <span>Dashboard</span>
                 </NavItem> */}
-        {session?.user?.email != "driver@gmail.com" && (
-          <>
-            <Divider label="orders" />
+        <Divider label="orders" />
 
-            {session?.user?.email == "official@lokaloka.id" && (
-              <>
-                <NavItem href="/orders/approved-orders">
-                  <HiBadgeCheck className="w-5 h-5" />
-                  <span>Approved Orders</span>
-                </NavItem>
-              </>
-            )}
-          </>
-        )}
+        <NavItem href="/orders/approved-orders">
+          <HiBadgeCheck className="w-5 h-5" />
+          <span>Approved Orders</span>
+        </NavItem>
+        <NavItem href="/transactions">
+          <HiBadgeCheck className="w-5 h-5" />
+          <span>Transactions</span>
+        </NavItem>
       </Sidebar>
 
       {/* Main Content */}
