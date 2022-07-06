@@ -26,7 +26,7 @@ const login = () => {
 
   const [session, loading] = useSession();
 
-  if (session) router.push(`/orders/approved-orders`);
+  if (session) router.push(`/transactions`);
 
   const handleSubmit = (e) => {
     e.preventDefault();
