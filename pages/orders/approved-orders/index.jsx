@@ -6,23 +6,30 @@ import Layout from "@/components/layout/Layout";
 import moment from "moment";
 import NumberFormat from "react-number-format";
 import { getSession } from "next-auth/client";
-import { useSession } from "next-auth/client";
 
 export const getServerSideProps = async (context) => {
   const session = await getSession(context);
 
-  const { data } = await axios.get(
-    session?.user?.email != "driver@gmail.com" &&
-      `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:asc&coupon.code=LOKALOKA`,
-
-    session?.user?.email == "official@lokaloka.id" &&
-      `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:asc&coupon.code=SAMARA`,
+  // ngebug ?? apa karna diolah di bagian variable data nya ??
+  // ngambil dari components/layout/Layout.jsx
+  const { data: getUser } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/users?email=${session?.user?.email}`,
     {
       headers: {
         Authorization: `Bearer ${session.jwt}`,
       },
     }
   );
+
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:asc&coupon.code=${getUser[0].coupons[0].code}`,
+    {
+      headers: {
+        Authorization: `Bearer ${session.jwt}`,
+      },
+    }
+  );
+  //Bagian FILTER EMAIL NYANGKUT DI BAGIAN INI ^^^ YANG SEHARUSNYA BISA DI EMAIL LOKALOKA
 
   if (!data) return { props: { transactions: [] } };
 
@@ -81,14 +88,16 @@ const index = ({ transactions }) => {
                     {t.user.name}
                   </span>
                 </div>
+
                 <div className="flex flex-col justify-start space-y-2 max-w-md">
                   <span className="uppercase text-blueGray-400 font-medium text-sm">
-                    Customer
+                    Coupon
                   </span>
                   <span className="font-bold text-md text-blueGray-100 line-clamp-1">
                     {t.coupon.code}
                   </span>
                 </div>
+
                 <div className="flex flex-col justify-start space-y-2">
                   <span className="uppercase text-blueGray-400 font-medium text-sm">
                     Transaction Code
@@ -104,6 +113,7 @@ const index = ({ transactions }) => {
                     {t.products.length} Products Ordered
                   </span>
                 </div>
+
                 <div className="flex justify-between">
                   <div className="flex flex-col space-y-1">
                     <span className="text-lg font-medium text-blueGray-400">
