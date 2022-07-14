@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
     <div className="layout">
       <Head>
         <title>Mitra x Lokaloka | Admin Panel</title>
-        <meta name="description" content="Admin panel for Arumanis" />
+        <meta name="description" content="Admin panel for Mitra" />
       </Head>
       {/* Sidebar */}
       <Sidebar>
@@ -24,10 +24,6 @@ const Layout = ({ children }) => {
                 </NavItem> */}
         <Divider label="orders" />
 
-        <NavItem href="/orders/approved-orders">
-          <HiBadgeCheck className="w-5 h-5" />
-          <span>Approved Orders</span>
-        </NavItem>
         <NavItem href="/transactions">
           <HiBadgeCheck className="w-5 h-5" />
           <span>Transactions</span>
