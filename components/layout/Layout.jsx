@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
     <div className="layout">
       <Head>
         <title>Mitra x Lokaloka | Admin Panel</title>
-        <meta name="description" content="Admin panel for Arumanis" />
+        <meta name="description" content="Admin panel for Mitra" />
       </Head>
       {/* Sidebar */}
       <Sidebar>
