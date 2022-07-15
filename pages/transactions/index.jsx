@@ -83,7 +83,7 @@ const index = ({ transactions }) => {
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="text-sm text-blueGray-200">
                                 <NumberFormat
-                                  value={t.shouldPayAmount}
+                                  value={t.totalPrice}
                                   displayType={"text"}
                                   thousandSeparator={true}
                                   prefix={"Rp. "}
